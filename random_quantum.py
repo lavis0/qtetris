@@ -11,5 +11,13 @@ def qRand(nMsrmnts):
 
     for i in range(nMsrmnts):
         results += simulate(qc, 1, '')[0]
+    
+    binary = ''
+    
+    for i in range(len(results)):
+        binary += results[i]
+     
+    decimal = int(binary, 2)
+    return decimal
 
-    return results
+print(qRand(4))
