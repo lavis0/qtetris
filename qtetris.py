@@ -81,7 +81,7 @@ while True:
                     brick = new_brick
                 debounce()
             elif (keys & pew.K_X and
-                  not(brick = BRICKS[7])):
+                  not(brick == BRICKS[7])):
                 new_brick = pew.Pix.from_iter([
                         [brick.pixel(y, brick.height - x -1)
                             for x in range(brick.height)]

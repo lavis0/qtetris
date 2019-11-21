@@ -69,7 +69,7 @@ while True:
         pew.Pix.from_iter([[2, 2], [0, 2], [0, 2]]),
         pew.Pix.from_iter([[2, 2], [2, 0], [2, 0]]),
         pew.Pix.from_iter([[2], [2], [2], [2]]),
-        pew.Pix.from_iter([[2,0,2]])
+        BRICKS[7]
     ]
   
     brick = next_brick
@@ -81,17 +81,17 @@ while True:
     while True:
         if is_colliding(board, brick, brick_x, brick_y):
             if brick is BRICKS[7]:
-                print("I am here")
+#                print("I am here")
                 if qRand(1):
-                    print("first")
+#                    print("first")
                     brick = SINGLE
                 else:
-                    print("second")
+#                    print("second")
                     brick = SINGLE
                     brick_x += 2
                 if is_colliding(board, brick, brick_x, brick_y):
                     break
-            else:
+            elif not(brick == BRICKS[7]):
                 prob = qRand(4)
                 if prob > 10:
                     counter = 0
@@ -149,7 +149,7 @@ while True:
                     brick = new_brick
                 debounce()
             elif (keys & pew.K_X and
-                  not(brick = BRICKS[7])):
+                  not(brick == BRICKS[7])):
                 new_brick = pew.Pix.from_iter([
                         [brick.pixel(y, brick.height - x -1)
                             for x in range(brick.height)]
