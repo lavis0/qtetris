@@ -1,3 +1,17 @@
+# Copyright 2019 qtetris contributors (https://github.com/lavis0/qtetris)
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#    http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import random
 import pew
 from microqiskit import QuantumCircuit, simulate
@@ -54,7 +68,7 @@ def debounce():
 pew.init()
 screen = pew.Pix(width=8, height=8)
 screen.box(color=2, x=6, y=0, width=2, height=8)
-next_brick = BRICKS[random.getrandbits(3)]
+next_brick = BRICKS[qRand(3)]
 board = pew.Pix(width=8, height=12)
 board.box(color=1)
 board.box(color=0, x=1, y=0, width=6, height=11)

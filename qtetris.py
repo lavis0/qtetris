@@ -1,6 +1,40 @@
+# Copyright 2019 qtetris contributors (https://github.com/lavis0/qtetris)
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#    http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import random
 import pew
+from microqiskit import QuantumCircuit, simulate
 
+qc = QuantumCircuit(1, 1)
+qc.h(0)
+qc.measure(0, 0)
+
+counts = simulate(qc, 1, '')
+
+def qRand(nMsrmnts):
+    results = []
+
+    for i in range(nMsrmnts):
+        results += simulate(qc, 1, '')[0]
+    
+    binary = ''
+    
+    for i in range(len(results)):
+        binary += results[i]
+     
+    decimal = int(binary, 2)
+    return decimal
 
 BRICKS = [ # 1 green 2 red 3 yellow
     pew.Pix.from_iter([[2, 2], [2, 2]]),
@@ -34,7 +68,7 @@ def debounce():
 pew.init()
 screen = pew.Pix(width=8, height=8)
 screen.box(color=2, x=6, y=0, width=2, height=8)
-next_brick = BRICKS[random.getrandbits(3)]
+next_brick = BRICKS[qRand(3)]
 board = pew.Pix(width=8, height=12)
 board.box(color=1)
 board.box(color=0, x=1, y=0, width=6, height=11)
@@ -42,7 +76,7 @@ board.box(color=0, x=1, y=0, width=6, height=11)
 
 while True:
     brick = next_brick
-    next_brick = BRICKS[random.getrandbits(3)]  # 0-7
+    next_brick = BRICKS[qRand(3)]  # 0-7
     screen.box(color=0, x=6, y=0, width=2, height=5)
     screen.blit(next_brick, dx=6, dy=0)
     brick_x = 2
@@ -50,7 +84,7 @@ while True:
     while True:
         if is_colliding(board, brick, brick_x, brick_y):
             if brick == BRICKS[7]:
-                if random.getrandbits(1):
+                if qRand(1):
                     brick = SINGLE
                 else:
                     brick = SINGLE
